@@ -22,11 +22,11 @@ glMatrixMode(GL_PROJECTION);
 gluOrtho2D(0, 600, 0,600);
 }
 
-//void drawSnake()
-//{
-//	
-//}
-//
+void drawSnake()
+{
+	
+}
+
 //void moveSnake()
 //{
 //	
@@ -37,15 +37,20 @@ void drawFood()
 	if(food)
 	{
 		foodx=1+rand()%16;
-		foodx=1+rand()%22;
+		foody=1+rand()%22;
 		
-		glBegin(GL_POLYGON);
+		
+		
+		glBegin(GL_QUADS);
 		
 		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex2i(25*foodx+pom, 25*foody+pom);
-		glVertex2i(25*foodx+pom, 25*foody-pom);
-		glVertex2i(25*foodx-pom, 25*foody-pom);
-		glVertex2i(25*foodx-pom, 25*foody+pom);
+		glVertex2i(25*foodx+2*pom, 25*foody+2*pom);
+		glColor3f(1.0f, 0.2f, 0.2f);
+		glVertex2i(25*foodx+2*pom, 25*foody);
+		glColor3f(1.0f, 0.1f, 0.1f);
+		glVertex2i(25*foodx, 25*foody);
+		glColor3f(1.0f, 0.3f, 0.3f);
+		glVertex2i(25*foodx, 25*foody+2*pom);
 		
 		glEnd();
 		
