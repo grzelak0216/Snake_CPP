@@ -5,6 +5,7 @@
 #include <algorithm> 
 #include <string.h>
 #include <conio.h>
+#include <string.h>
 
 using namespace std;
 
@@ -26,6 +27,12 @@ int xr=0, yr=0;
 
 char pass;
 
+string txt1="Snake Game";
+string txt2="Press dart button";
+string txt3="Your score: ";
+string txt4="GAME OVER";
+string txt5="Thank You for game";
+
 void init()
 {
     // For displaying the window color
@@ -42,14 +49,15 @@ void partSnake(int x, int y)
 {
 	glBegin(GL_QUADS);
 	
-    glColor3f(0.0f, 0.0f, 0.0f);
-    glVertex2i(x + pom, y +  pom);
-    glColor3f(0.5f, 0.5f, 0.0f);
-    glVertex2i(x + pom, y);
-    glColor3f(0.0f, 0.0f, 0.0f);
-    glVertex2i(x, y);
-    glColor3f(0.0f, 0.5f, 0.5f);
-    glVertex2i(x, y + pom);
+		glColor3f(0.0f, 0.0f, 0.0f);
+	    glVertex2i(x + pom, y +  pom);
+	    glColor3f(0.5f, 0.5f, 0.0f);
+	    glVertex2i(x + pom, y);
+	    glColor3f(0.0f, 0.0f, 0.0f);
+	    glVertex2i(x, y);
+	    glColor3f(0.0f, 0.5f, 0.5f);
+	    glVertex2i(x, y + pom);	
+
 
     glEnd();
 }
@@ -149,7 +157,7 @@ void moveSnake()
 			if (posSnake[0][0] < 1 || posSnake[0][0] > 22 || posSnake[0][1] < 1 || posSnake[0][1] > 22)
 			{
 			 	GAME_OVER=1;
-			 	cout<<8;
+			 	//cout<<8;
 			 	//exit(0);
 			}
             else
@@ -158,8 +166,8 @@ void moveSnake()
 				{
 					SCORE++;
 					food = 1;
-					posSnake[length+1][0] = posSnake[length][0];
-        			posSnake[length+1][1] = posSnake[length][1];
+//					posSnake[length+1][0] = posSnake[length][0];
+//        			posSnake[length+1][1] = posSnake[length][1];
 					
 					length++;
 				}
@@ -169,15 +177,13 @@ void moveSnake()
                 if (posSnake[0][0] == posSnake[j][0] &&  posSnake[0][1] == posSnake[j][1])
                 {
                 	GAME_OVER = 1;
-                	cout<<9;
+                	//cout<<9;
                 	//exit(0);
 				}
             }   
 		}
 	}
 	
-    
-//    void drawSnake();
 }
 
 void drawFood()
@@ -267,6 +273,43 @@ void board()
 
 }
 
+void drawString24( int x, int y, string str )
+{
+    glRasterPos2d( x, y );
+ 
+    int len = str.length();
+    for( int i = 0; i < len; i++ )
+    	glutBitmapCharacter( GLUT_BITMAP_TIMES_ROMAN_24, str[ i ] );
+}
+
+void drawString10( int x, int y, string str )
+{
+    glRasterPos2d( x, y );
+ 
+    int len = str.length();
+    for( int i = 0; i < len; i++ )
+    	glutBitmapCharacter( GLUT_BITMAP_TIMES_ROMAN_10, str[ i ] );
+}
+
+string intToStr(int n)
+{
+    std::string ret, tmp;
+
+    if (n < 0) {
+        ret = "-";
+        n = -n;
+    }
+
+    do {
+        tmp += (char)(n % 10 + '0');
+        n -= n % 10;
+    } while(n /= 10);
+
+    for(int i = tmp.size()-1; i >= 0; i--)
+        ret += tmp[i];
+
+    return ret;
+}
 
 void gameSnake()
 {
@@ -274,23 +317,26 @@ void gameSnake()
 	drawFood();
     moveSnake();
     drawSnake();
+    glColor3f(1.0f, 1.0f, 1.0f);
+    drawString24(25,5,txt3);
+    drawString24(150,5,intToStr(SCORE));
     glFlush();
-    cout<<2;
+    //cout<<2;
 }
 
 void beginSnake()
 {
 	board();
-    
     drawSnake();
-    
+    glColor3f(1.0f, 1.0f, 1.0f);
+ 	drawString24(225,400,txt1); 
+ 	drawString10(250,390,txt2); 
     glFlush();
 	
-	cout<<1;
+	//cout<<1;
 	
 	if(yr > 0 || xr !=0)
 	{
-		//moveSnake();
 		GAME_OVER=0;
 	}
 	Sleep(1);
@@ -301,10 +347,14 @@ void endSnake()
 	board();
     
     drawSnake();
-    
+    glColor3f(1.0f, 1.0f, 1.0f);
+    drawString24(225,400,txt4); 
+ 	drawString24(200,370,txt5); 
+    drawString24(225,340,txt3);
+    drawString24(350,340,intToStr(SCORE));
     glFlush();
     
-    cout<<3;
+    //cout<<3;
 }
 
 void bildSnake()
